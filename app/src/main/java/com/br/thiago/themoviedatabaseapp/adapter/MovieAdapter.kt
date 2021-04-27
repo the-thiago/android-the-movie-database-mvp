@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.br.thiago.themoviedatabaseapp.R
+import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.bumptech.glide.Glide
 
@@ -32,17 +33,21 @@ class MovieAdapter(private val callback: (Movie) -> Unit) :
 
     override fun getItemCount() = movies.size
 
-
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ivImageMovie: ImageView = itemView.findViewById(R.id.ivImageMovie)
         private val tvMovieTitle: TextView = itemView.findViewById(R.id.tvMovieTitle)
+        private val tvReleaseDate: TextView = itemView.findViewById(R.id.tvReleaseDate)
+        private val tvVoteAverage: TextView = itemView.findViewById(R.id.tvVoteAverage)
 
         fun bind(movie: Movie) {
             tvMovieTitle.text = movie.title
+            tvReleaseDate.text = movie.release_date
+            tvVoteAverage.text = movie.vote_average.toString()
+            itemView.setOnClickListener { callback.invoke(movie) }
 
             Glide
                 .with(itemView)
-                .load("url")
+                .load("${MovieService.BASE_IMAGE_URL}${movie.poster_path}")
                 .placeholder(R.drawable.ic_movie_image_placeholder)
                 .centerCrop()
                 .into(ivImageMovie)

@@ -1,4 +1,4 @@
-package com.br.thiago.themoviedatabaseapp.api
+package com.br.thiago.themoviedatabaseapp.api.getmovies
 
 data class GetMoviesResponse(
     val page: Int,

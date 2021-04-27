@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.br.thiago.themoviedatabaseapp.ListFragment"
+        android:name="com.br.thiago.themoviedatabaseapp.fragments.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -16,12 +16,16 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.br.thiago.themoviedatabaseapp.DetailsFragment"
+        android:name="com.br.thiago.themoviedatabaseapp.fragments.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.br.thiago.themoviedatabaseapp.FavoritesFragment"
+        android:name="com.br.thiago.themoviedatabaseapp.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -30,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.br.thiago.themoviedatabaseapp.SearchFragment"
+        android:name="com.br.thiago.themoviedatabaseapp.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action

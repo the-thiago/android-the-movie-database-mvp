@@ -1,17 +1,20 @@
-package com.br.thiago.themoviedatabaseapp
+package com.br.thiago.themoviedatabaseapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.br.thiago.themoviedatabaseapp.adapter.MovieAdapter
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentListBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.br.thiago.themoviedatabaseapp.util.getMovies
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListFragment : Fragment() {
 
@@ -38,8 +41,9 @@ class ListFragment : Fragment() {
 
         var movies = emptyList<Movie>()
         CoroutineScope(Dispatchers.IO).launch {
-            if (MovieService.create().getMovies().isSuccessful) {
-                MovieService.create().getMovies().body()?.getMovies()?.let {
+            val moviesRequest = MovieService.create().getMovies()
+            if (moviesRequest.isSuccessful) {
+                moviesRequest.body()?.getMovies()?.let {
                     movies = it
                 }
                 withContext(Dispatchers.Main) {
@@ -47,11 +51,14 @@ class ListFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun clickItem(movie: Movie) {
-        println(movie)
+        findNavController().navigate(
+            ListFragmentDirections.actionListFragmentToDetailsFragment(
+                movieId = movie.id
+            )
+        )
     }
 
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TheMovieDatabaseApp</string>
+    <string name="back_drop_image">Back drop image</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
 </resources>
