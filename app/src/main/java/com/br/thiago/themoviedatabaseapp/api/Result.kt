@@ -1,6 +1,6 @@
-package com.br.thiago.themoviedatabaseapp.model
+package com.br.thiago.themoviedatabaseapp.api
 
-data class Movie(
+data class Result(
     val backdrop_path: String, // Using
     val genre_ids: List<Int>,
     val id: Int, // Using

@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.br.thiago.themoviedatabaseapp.adapter.MovieAdapter
+import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentListBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
+import com.br.thiago.themoviedatabaseapp.util.getMovies
+import kotlinx.coroutines.*
 
 class ListFragment : Fragment() {
 
@@ -32,16 +36,22 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
 
-        val listOf = listOf(
-            Movie(title = "teste 0"),
-            Movie(title = "teste 2"),
-            Movie(title = "teste 3")
-        )
-        adapter.setItems(listOf)
+        var movies = emptyList<Movie>()
+        CoroutineScope(Dispatchers.IO).launch {
+            if (MovieService.create().getMovies().isSuccessful) {
+                MovieService.create().getMovies().body()?.getMovies()?.let {
+                    movies = it
+                }
+                withContext(Dispatchers.Main) {
+                    adapter.setItems(movies)
+                }
+            }
+        }
+
     }
 
     private fun clickItem(movie: Movie) {
-
+        println(movie)
     }
 
 }
