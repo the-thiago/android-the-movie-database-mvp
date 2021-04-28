@@ -1,4 +1,4 @@
-package com.br.thiago.themoviedatabaseapp.fragments
+package com.br.thiago.themoviedatabaseapp.ui.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,16 +11,13 @@ import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.api.getdetails.GetMovieDetailsResponse
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentDetailsBinding
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), DetailsContract.View {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     private val args: DetailsFragmentArgs by navArgs()
+    private var presenter: DetailsPresenter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,25 +30,20 @@ class DetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        presenter = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = DetailsPresenter(this)
         getDetailsFromApi()
     }
 
     private fun getDetailsFromApi() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val details = MovieService.create().getMovieDetails(args.movieId).body()
-            details?.let {
-                withContext(Dispatchers.Main) {
-                    setupLayout(details)
-                }
-            }
-        }
+        presenter?.getDetailsFromApi(args.movieId)
     }
 
-    private fun setupLayout(details: GetMovieDetailsResponse) {
+    override fun setupLayout(details: GetMovieDetailsResponse) {
         binding.tvOriginalTitle.text = details.original_title
         Glide
             .with(requireContext())
@@ -59,6 +51,14 @@ class DetailsFragment : Fragment() {
             .placeholder(R.drawable.ic_movie_image_placeholder)
             .centerCrop()
             .into(binding.ivBackDrop)
+    }
+
+    override fun showLoadingScreen() {
+        binding.loadingGroup.visibility = View.VISIBLE
+    }
+
+    override fun hideLoadingScreen() {
+        binding.loadingGroup.visibility = View.GONE
     }
 
 }

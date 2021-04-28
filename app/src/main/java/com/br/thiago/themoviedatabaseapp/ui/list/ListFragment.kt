@@ -1,4 +1,4 @@
-package com.br.thiago.themoviedatabaseapp.fragments
+package com.br.thiago.themoviedatabaseapp.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.br.thiago.themoviedatabaseapp.adapter.MovieAdapter
-import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentListBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
-import com.br.thiago.themoviedatabaseapp.util.getMovies
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), ListContract.View {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy { MovieAdapter(::clickItem) }
+    private var presenter: ListPresenter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,24 +30,14 @@ class ListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        presenter = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = ListPresenter(this)
         binding.recyclerView.adapter = adapter
-
-        var movies = emptyList<Movie>()
-        CoroutineScope(Dispatchers.IO).launch {
-            val moviesRequest = MovieService.create().getMovies()
-            if (moviesRequest.isSuccessful) {
-                moviesRequest.body()?.getMovies()?.let {
-                    movies = it
-                }
-                withContext(Dispatchers.Main) {
-                    adapter.setItems(movies)
-                }
-            }
-        }
+        presenter?.getMoviesFromApi()
     }
 
     private fun clickItem(movie: Movie) {
@@ -59,6 +46,18 @@ class ListFragment : Fragment() {
                 movieId = movie.id
             )
         )
+    }
+
+    override fun showMovieList(movies: List<Movie>) {
+        adapter.setItems(movies)
+    }
+
+    override fun showLoadingScreen() {
+        binding.loadingGroup.visibility = View.VISIBLE
+    }
+
+    override fun hideLoadingScreen() {
+        binding.loadingGroup.visibility = View.GONE
     }
 
 }
