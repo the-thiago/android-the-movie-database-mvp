@@ -11,7 +11,7 @@ interface DetailsContract {
     }
 
     interface Presenter {
-        fun getDetailsFromApi(movieId: Int);
+        fun getDetailsFromApi(movieId: Int)
     }
 
 }

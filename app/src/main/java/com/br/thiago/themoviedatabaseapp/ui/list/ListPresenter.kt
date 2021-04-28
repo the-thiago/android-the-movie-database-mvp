@@ -8,9 +8,9 @@ import kotlinx.coroutines.*
 class ListPresenter(private val view: ListContract.View) : ListContract.Presenter {
 
     override fun getMoviesFromApi() {
-        var movies = emptyList<Movie>()
+        view.showLoadingScreen()
         CoroutineScope(Dispatchers.IO).launch {
-            view.showLoadingScreen()
+            var movies = emptyList<Movie>()
             val moviesRequest = MovieService.create().getMovies()
             if (moviesRequest.isSuccessful) {
                 moviesRequest.body()?.getMovies()?.let {

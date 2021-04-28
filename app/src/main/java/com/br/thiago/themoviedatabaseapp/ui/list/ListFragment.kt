@@ -9,8 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.br.thiago.themoviedatabaseapp.adapter.MovieAdapter
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentListBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ListFragment : Fragment(), ListContract.View {
 
