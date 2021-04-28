@@ -19,7 +19,7 @@ interface MovieService {
     @GET("${BASE_URL}movie/{id}?$KEY_AND_LANGUAGE")
     suspend fun getMovieDetails(@Path("id") movieId: Int): Response<GetMovieDetailsResponse>
 
-    @GET("$SEARCH_MOVIES_URL")
+    @GET(SEARCH_MOVIES_URL)
     suspend fun searchMovies(@Query("query") query: String): Response<GetMoviesResponse>
 
     companion object {
@@ -32,7 +32,6 @@ interface MovieService {
         private const val KEY_AND_LANGUAGE = "api_key=$KEY&language=$LANGUAGE"
         private const val GET_MOVIES_URL = "${BASE_URL}movie/now_playing?$KEY_AND_LANGUAGE$PAGE"
         private const val SEARCH_MOVIES_URL = "${BASE_URL}search/movie?api_key=$KEY"
-        //https://api.themoviedb.org/3/search/movie?api_key=f0ddbdbd9b527dc41f8f2c75c7e901f1&query=Jack+Reacher
 
         fun create(): MovieService {
             val logger =

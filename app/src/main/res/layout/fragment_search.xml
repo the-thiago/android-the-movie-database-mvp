@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="No movies found"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="No movies found" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etSearchField"
@@ -68,9 +68,9 @@
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/loadingGroup"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="viewLoading,progressBar"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="viewLoading,progressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

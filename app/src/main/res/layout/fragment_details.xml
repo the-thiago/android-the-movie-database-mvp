@@ -28,6 +28,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_favorite_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true" />
+
     <View
         android:id="@+id/viewLoading"
         android:layout_width="0dp"
@@ -55,9 +67,9 @@
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/loadingGroup"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="viewLoading,progressBar"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="viewLoading,progressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
