@@ -20,6 +20,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
     private val args: DetailsFragmentArgs by navArgs()
     private var presenter: DetailsPresenter? = null
     private var isFavoriteMovie: Boolean = false
+    private lateinit var movie: Movie
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,20 +38,16 @@ class DetailsFragment : Fragment(), DetailsContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = DetailsPresenter(this)
+        presenter = DetailsPresenter(this, MovieService.create())
         getMovieDetails()
         binding.fabAddFavorite.setOnClickListener {
-            val movie = presenter?.movie
-            movie?.let {
-                presenter?.addOrRemoveFromDatabase(movie, isFavoriteMovie, requireContext())
-            }
+            presenter?.addOrRemoveFromParse(movie, isFavoriteMovie)
         }
     }
 
     private fun getMovieDetails() {
-        isFavoriteMovie = presenter?.isFavoriteMovie(args.isFromDatabase, requireContext()) ?: false
         showLoadingScreen()
-        presenter?.getMovieDetails(args.movieId, args.isFromDatabase, requireContext())
+        presenter?.getMovieDetails(args.movieId, args.isFromDatabase)
     }
 
     override fun setupLayout(movie: Movie) {
@@ -72,13 +69,14 @@ class DetailsFragment : Fragment(), DetailsContract.View {
     }
 
     override fun setFabAsFavoriteMovie() {
+        isFavoriteMovie = true
         binding.fabAddFavorite.setImageDrawable(
             context?.let { ContextCompat.getDrawable(it, R.drawable.ic_baseline_favorite_24) }
         )
-        isFavoriteMovie = true
     }
 
     override fun setFabAsNotFavoriteMovie() {
+        isFavoriteMovie = false
         binding.fabAddFavorite.setImageDrawable(
             context?.let {
                 ContextCompat.getDrawable(
@@ -87,7 +85,10 @@ class DetailsFragment : Fragment(), DetailsContract.View {
                 )
             }
         )
-        isFavoriteMovie = true
+    }
+
+    override fun setMovie(movie: Movie) {
+        this.movie = movie
     }
 
 }

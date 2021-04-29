@@ -18,13 +18,14 @@ fun GetMoviesResponse.toMovies(): List<Movie> {
 }
 
 fun com.br.thiago.themoviedatabaseapp.api.getdetails.Movie.toMovie(): Movie {
-    return Movie(
-//        id = id,
-//        backdrop_path = backdrop_path,
-//        original_title = original_title,
-//        poster_path = poster_path,
-//        release_date = release_date,
-//        title = title,
-//        vote_average = vote_average
-    )
+    val titleFromApi = this.title
+    return Movie().apply {
+        movieId = id
+        backdropPath = backdrop_path
+        posterPath = poster_path
+        voteAverage = vote_average
+        this.title = titleFromApi
+        releaseDate = release_date
+        originalTitle = original_title
+    }
 }

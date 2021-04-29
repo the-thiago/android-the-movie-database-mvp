@@ -1,6 +1,5 @@
 package com.br.thiago.themoviedatabaseapp.ui.details
 
-import android.content.Context
 import android.util.Log
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
@@ -19,81 +18,77 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailsPresenter(private val view: DetailsContract.View) : DetailsContract.Presenter {
 
-    var movie: Movie? = null
+class DetailsPresenter(
+    private val view: DetailsContract.View,
+    private val movieService: MovieService
+) : DetailsContract.Presenter {
 
-    override fun getMovieDetails(movieId: Int, isFromDatabase: Boolean, context: Context) {
+    override fun getMovieDetails(movieId: Int, isFromDatabase: Boolean) {
         var movie = Movie()
-        CoroutineScope(Dispatchers.IO).launch {
-            if (isFromDatabase) {
-
-                val query = ParseQuery.getQuery<ParseObject>("Movie")
-                query.findInBackground { moviesFromParse, exception ->
-                    if (exception == null) {
-                        val movies = mutableListOf<Movie>()
-                        moviesFromParse.forEach {
-                            if (it.getInt(ID_KEY) == movieId) {
-                                movie.movieId = it.getInt(ID_KEY)
-                                movie.backdropPath = it.getString(BACKDROP_PATH_KEY)
-                                movie.originalTitle = it.getString(ORIGINAL_TITLE_KEY)
-                                movie.posterPath = it.getString(POSTER_PATH_KEY)
-                                movie.releaseDate = it.getString(RELEASE_DATE_KEY)
-                                movie.title = it.getString(TITLE_KEY)
-                                movie.voteAverage = it.getDouble(VOTE_AVERAGE_KEY)
-                                movies.add(movie)
-                            }
-                        }
-                    } else {
-                        Log.d("parseTest", "getAllMovies: Error ${exception.message}")
+        var isFavoriteMovie = false
+        val query = ParseQuery.getQuery<ParseObject>("Movie")
+        query.findInBackground { moviesFromParse, exception ->
+            if (exception == null) {
+                moviesFromParse.forEach {
+                    if (it.getInt(ID_KEY) == movieId) {
+                        movie.movieId = it.getInt(ID_KEY)
+                        movie.backdropPath = it.getString(BACKDROP_PATH_KEY)
+                        movie.originalTitle = it.getString(ORIGINAL_TITLE_KEY)
+                        movie.posterPath = it.getString(POSTER_PATH_KEY)
+                        movie.releaseDate = it.getString(RELEASE_DATE_KEY)
+                        movie.title = it.getString(TITLE_KEY)
+                        movie.voteAverage = it.getDouble(VOTE_AVERAGE_KEY)
+                        isFavoriteMovie = true
+                        view.setMovie(movie)
+                        setupLayout(movie)
+                        view.setFabAsFavoriteMovie()
                     }
                 }
-
-                setupLayout(movie)
-                view.setFabAsFavoriteMovie()
             } else {
-                val movieDetailsResponse = MovieService.create().getMovieDetails(movieId).body()
+                Log.d("parse", "getAllMovies: Error ${exception.message}")
+            }
+        }
+        if (!isFavoriteMovie) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val movieDetailsResponse = movieService.getMovieDetails(movieId).body()
                 movieDetailsResponse?.toMovie()?.let {
                     movie = it
-                    setupLayout(movie)
+                    withContext(Dispatchers.Main) {
+                        view.setMovie(movie)
+                        view.setupLayout(movie)
+                        view.hideLoadingScreen()
+                    }
                 }
             }
-            this@DetailsPresenter.movie = movie
         }
     }
 
-    override fun addOrRemoveFromDatabase(movie: Movie, isFavoriteMovie: Boolean, context: Context) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            if (isFavoriteMovie) {
-////                MovieDatabase.getInstance(context).getMovieDao().deleteMovie(movie)
-//                withContext(Dispatchers.Main) {
-//                    view.setFabAsFavoriteMovie()
-//                }
-//            } else {
-////                MovieDatabase.getInstance(context).getMovieDao().insertMovie(movie)
-//                withContext(Dispatchers.Main) {
-//                    view.setFabAsNotFavoriteMovie()
-//                }
-//            }
-//        }
-    }
-
-    override fun isFavoriteMovie(isFromDatabase: Boolean, context: Context): Boolean {
-//        if (isFromDatabase) {
-//            return true
-//        }
-////        CoroutineScope(Dispatchers.IO).launch {
-////            MovieDatabase.getInstance(context).getMovieDao()
-////        }
-        return false
-    }
-
-    private suspend fun setupLayout(movie: Movie?) {
-        movie?.let {
-            withContext(Dispatchers.Main) {
-                view.setupLayout(movie)
-                view.hideLoadingScreen()
+    override fun addOrRemoveFromParse(movie: Movie, isFavoriteMovie: Boolean) {
+        if (isFavoriteMovie) {
+            val query = ParseQuery.getQuery<ParseObject>("Movie")
+            query.findInBackground { moviesFromParse, exception ->
+                if (exception == null) {
+                    moviesFromParse.forEach {
+                        if (it.getInt(ID_KEY) == movie.movieId) {
+                            it.deleteInBackground()
+                        }
+                    }
+                } else {
+                    Log.d("parse", "getAllMovies: Error ${exception.message}")
+                }
             }
+            view.setFabAsNotFavoriteMovie()
+        } else {
+            movie.saveInBackground()
+            view.setFabAsFavoriteMovie()
+        }
+    }
+
+    private fun setupLayout(movie: Movie?) {
+        movie?.let {
+            view.setupLayout(movie)
+            view.hideLoadingScreen()
         }
     }
 

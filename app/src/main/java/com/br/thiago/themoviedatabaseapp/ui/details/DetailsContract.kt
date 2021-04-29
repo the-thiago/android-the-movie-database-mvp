@@ -11,12 +11,12 @@ interface DetailsContract {
         fun hideLoadingScreen()
         fun setFabAsFavoriteMovie()
         fun setFabAsNotFavoriteMovie()
+        fun setMovie(movie: Movie)
     }
 
     interface Presenter {
-        fun getMovieDetails(movieId: Int, isFromDatabase: Boolean, context: Context)
-        fun addOrRemoveFromDatabase(movie: Movie, isFavoriteMovie: Boolean, context: Context)
-        fun isFavoriteMovie(isFromDatabase: Boolean, context: Context): Boolean
+        fun getMovieDetails(movieId: Int, isFromDatabase: Boolean)
+        fun addOrRemoveFromParse(movie: Movie, isFavoriteMovie: Boolean)
     }
 
 }

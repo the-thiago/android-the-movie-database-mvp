@@ -36,9 +36,9 @@ class FavoritesPresenter(private val view: FavoritesContract.View) : FavoritesCo
                     view.showMovieList(movies)
                 }
             } else {
-                Log.d("parseTest", "getAllMovies: Error ${exception.message}")
+                Log.d("parse", "getAllMovies: Error ${exception.message}")
             }
         }
-
     }
+
 }
