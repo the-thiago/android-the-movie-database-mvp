@@ -9,7 +9,7 @@
         android:id="@+id/listFragment"
         android:name="com.br.thiago.themoviedatabaseapp.ui.list.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -18,16 +18,19 @@
         android:id="@+id/detailsFragment"
         android:name="com.br.thiago.themoviedatabaseapp.ui.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="movieId"
             app:argType="integer" />
+        <argument
+            android:name="isFromDatabase"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.br.thiago.themoviedatabaseapp.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" >
+        tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_favoritesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -36,7 +39,7 @@
         android:id="@+id/searchFragment"
         android:name="com.br.thiago.themoviedatabaseapp.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />

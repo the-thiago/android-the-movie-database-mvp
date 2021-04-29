@@ -1,6 +1,6 @@
 package com.br.thiago.themoviedatabaseapp.api.getdetails
 
-data class GetMovieDetailsResponse(
+data class Movie(
     val adult: Boolean,
     val backdrop_path: String,
     val belongs_to_collection: Any,

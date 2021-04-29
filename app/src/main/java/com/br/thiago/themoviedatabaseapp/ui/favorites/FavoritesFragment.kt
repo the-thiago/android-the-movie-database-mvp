@@ -35,13 +35,14 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         super.onViewCreated(view, savedInstanceState)
         presenter = FavoritesPresenter(this)
         binding.recyclerView.adapter = adapter
-        presenter?.getAllMovies(requireContext())
+        presenter?.getAllMovies()
     }
 
     private fun clickItem(movie: Movie) {
         findNavController().navigate(
             FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(
-                movieId = movie.id
+                movieId = movie.movieId,
+                isFromDatabase = true
             )
         )
     }

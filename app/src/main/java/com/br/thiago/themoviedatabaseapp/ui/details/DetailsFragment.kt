@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.br.thiago.themoviedatabaseapp.R
 import com.br.thiago.themoviedatabaseapp.api.MovieService
-import com.br.thiago.themoviedatabaseapp.api.getdetails.GetMovieDetailsResponse
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentDetailsBinding
+import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.bumptech.glide.Glide
 
 class DetailsFragment : Fragment(), DetailsContract.View {
@@ -18,6 +19,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
     private val binding get() = _binding!!
     private val args: DetailsFragmentArgs by navArgs()
     private var presenter: DetailsPresenter? = null
+    private var isFavoriteMovie: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +38,26 @@ class DetailsFragment : Fragment(), DetailsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = DetailsPresenter(this)
-        getDetailsFromApi()
+        getMovieDetails()
+        binding.fabAddFavorite.setOnClickListener {
+            val movie = presenter?.movie
+            movie?.let {
+                presenter?.addOrRemoveFromDatabase(movie, isFavoriteMovie, requireContext())
+            }
+        }
     }
 
-    private fun getDetailsFromApi() {
-        presenter?.getDetailsFromApi(args.movieId)
+    private fun getMovieDetails() {
+        isFavoriteMovie = presenter?.isFavoriteMovie(args.isFromDatabase, requireContext()) ?: false
+        showLoadingScreen()
+        presenter?.getMovieDetails(args.movieId, args.isFromDatabase, requireContext())
     }
 
-    override fun setupLayout(details: GetMovieDetailsResponse) {
-        binding.tvOriginalTitle.text = details.original_title
+    override fun setupLayout(movie: Movie) {
+        binding.tvOriginalTitle.text = movie.originalTitle
         Glide
             .with(requireContext())
-            .load("${MovieService.BASE_IMAGE_URL}${details.backdrop_path}")
+            .load("${MovieService.BASE_IMAGE_URL}${movie.backdropPath}")
             .placeholder(R.drawable.ic_movie_image_placeholder)
             .centerCrop()
             .into(binding.ivBackDrop)
@@ -59,6 +69,25 @@ class DetailsFragment : Fragment(), DetailsContract.View {
 
     override fun hideLoadingScreen() {
         binding.loadingGroup.visibility = View.GONE
+    }
+
+    override fun setFabAsFavoriteMovie() {
+        binding.fabAddFavorite.setImageDrawable(
+            context?.let { ContextCompat.getDrawable(it, R.drawable.ic_baseline_favorite_24) }
+        )
+        isFavoriteMovie = true
+    }
+
+    override fun setFabAsNotFavoriteMovie() {
+        binding.fabAddFavorite.setImageDrawable(
+            context?.let {
+                ContextCompat.getDrawable(
+                    it,
+                    R.drawable.ic_baseline_favorite_border_24
+                )
+            }
+        )
+        isFavoriteMovie = true
     }
 
 }

@@ -2,7 +2,7 @@ package com.br.thiago.themoviedatabaseapp.ui.search
 
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
-import com.br.thiago.themoviedatabaseapp.util.getMovies
+import com.br.thiago.themoviedatabaseapp.util.toMovies
 import kotlinx.coroutines.*
 
 class SearchPresenter(private val view: SearchContract.View) : SearchContract.Presenter {
@@ -16,7 +16,7 @@ class SearchPresenter(private val view: SearchContract.View) : SearchContract.Pr
             var movies = emptyList<Movie>()
             val moviesRequest = MovieService.create().searchMovies(query)
             if (moviesRequest.isSuccessful) {
-                moviesRequest.body()?.getMovies()?.let {
+                moviesRequest.body()?.toMovies()?.let {
                     movies = it
                 }
                 withContext(Dispatchers.Main) {

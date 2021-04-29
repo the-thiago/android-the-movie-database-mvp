@@ -41,7 +41,8 @@ class ListFragment : Fragment(), ListContract.View {
     private fun clickItem(movie: Movie) {
         findNavController().navigate(
             ListFragmentDirections.actionListFragmentToDetailsFragment(
-                movieId = movie.id
+                movieId = movie.movieId,
+                isFromDatabase = false
             )
         )
     }

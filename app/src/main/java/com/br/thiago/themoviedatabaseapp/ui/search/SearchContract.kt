@@ -1,6 +1,5 @@
 package com.br.thiago.themoviedatabaseapp.ui.search
 
-import com.br.thiago.themoviedatabaseapp.api.getdetails.GetMovieDetailsResponse
 import com.br.thiago.themoviedatabaseapp.model.Movie
 
 class SearchContract {

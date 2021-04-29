@@ -2,8 +2,11 @@ package com.br.thiago.themoviedatabaseapp.ui.list
 
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
-import com.br.thiago.themoviedatabaseapp.util.getMovies
-import kotlinx.coroutines.*
+import com.br.thiago.themoviedatabaseapp.util.toMovies
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListPresenter(private val view: ListContract.View) : ListContract.Presenter {
 
@@ -13,7 +16,7 @@ class ListPresenter(private val view: ListContract.View) : ListContract.Presente
             var movies = emptyList<Movie>()
             val moviesRequest = MovieService.create().getMovies()
             if (moviesRequest.isSuccessful) {
-                moviesRequest.body()?.getMovies()?.let {
+                moviesRequest.body()?.toMovies()?.let {
                     movies = it
                 }
                 withContext(Dispatchers.Main) {

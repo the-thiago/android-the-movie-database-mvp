@@ -44,7 +44,8 @@ class SearchFragment : Fragment(), SearchContract.View {
     private fun clickItem(movie: Movie) {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
-                movieId = movie.id
+                movieId = movie.movieId,
+                isFromDatabase = false
             )
         )
     }

@@ -1,6 +1,6 @@
 package com.br.thiago.themoviedatabaseapp.api
 
-import com.br.thiago.themoviedatabaseapp.api.getdetails.GetMovieDetailsResponse
+import com.br.thiago.themoviedatabaseapp.api.getdetails.Movie
 import com.br.thiago.themoviedatabaseapp.api.getmovies.GetMoviesResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +17,7 @@ interface MovieService {
     suspend fun getMovies(): Response<GetMoviesResponse>
 
     @GET("${BASE_URL}movie/{id}?$KEY_AND_LANGUAGE")
-    suspend fun getMovieDetails(@Path("id") movieId: Int): Response<GetMovieDetailsResponse>
+    suspend fun getMovieDetails(@Path("id") movieId: Int): Response<Movie>
 
     @GET(SEARCH_MOVIES_URL)
     suspend fun searchMovies(@Query("query") query: String): Response<GetMoviesResponse>

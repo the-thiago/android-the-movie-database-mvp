@@ -11,7 +11,7 @@ interface FavoritesContract {
     }
 
     interface Presenter {
-        fun getAllMovies(context: Context)
+        fun getAllMovies()
     }
 
 }

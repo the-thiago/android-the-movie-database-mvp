@@ -41,13 +41,13 @@ class MovieAdapter(private val callback: (Movie) -> Unit) :
 
         fun bind(movie: Movie) {
             tvMovieTitle.text = movie.title
-            tvReleaseDate.text = movie.release_date
-            tvVoteAverage.text = movie.vote_average.toString()
+            tvReleaseDate.text = movie.releaseDate
+            tvVoteAverage.text = movie.voteAverage.toString()
             itemView.setOnClickListener { callback.invoke(movie) }
 
             Glide
                 .with(itemView)
-                .load("${MovieService.BASE_IMAGE_URL}${movie.poster_path}")
+                .load("${MovieService.BASE_IMAGE_URL}${movie.posterPath}")
                 .placeholder(R.drawable.ic_movie_image_placeholder)
                 .centerCrop()
                 .into(ivImageMovie)

@@ -6,6 +6,6 @@
     <string name="search">Search</string>
     <string name="no_movies_found">No movies found</string>
     <string name="type_to_search">Type to search</string>
-    <string name="search_hint">Search...</string>
+    <string name="search_hint">Search…</string>
     <string name="no_favorite_movie">No favorite movie</string>
 </resources>
