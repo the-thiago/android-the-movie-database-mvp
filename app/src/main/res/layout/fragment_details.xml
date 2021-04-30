@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -41,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivBackDrop"
             android:layout_width="0dp"
             android:layout_height="200dp"
@@ -50,6 +51,176 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnFavoriteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#1e2748"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivBackDrop" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOverviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/overview"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/ivPoster"
+            app:layout_constraintTop_toBottomOf="@+id/ivPoster" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOverviewDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvOverviewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvOverviewTitle"
+            tools:text="Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe." />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivImdbIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_imdb"
+            app:layout_constraintBottom_toTopOf="@+id/tvReleaseDateValue"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvVoteAverageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ivImdbIcon"
+            app:layout_constraintStart_toEndOf="@+id/ivImdbIcon"
+            app:layout_constraintTop_toTopOf="@+id/ivImdbIcon"
+            tools:text="6.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvReleaseDateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
+            app:layout_constraintStart_toStartOf="@+id/ivImdbIcon"
+            tools:text="01/01/2022" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOriginalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/original_title"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvOverviewDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvOverviewDescription" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOriginalTitleValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOriginalTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvOriginalTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvOriginalTitle"
+            tools:text="The Dumbo" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/budget"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvOverviewDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBudgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBudget"
+            app:layout_constraintStart_toEndOf="@+id/tvBudget"
+            app:layout_constraintTop_toTopOf="@+id/tvBudget"
+            tools:text="200000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRevenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/revenue"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvBudget"
+            app:layout_constraintTop_toBottomOf="@+id/tvBudget" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRevenueValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRevenue"
+            app:layout_constraintStart_toEndOf="@+id/tvRevenue"
+            app:layout_constraintTop_toTopOf="@+id/tvRevenue"
+            tools:text="100000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRuntime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/runtime"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvRevenue"
+            app:layout_constraintTop_toBottomOf="@+id/tvRevenue" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRuntimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRuntime"
+            app:layout_constraintStart_toEndOf="@+id/tvRuntime"
+            app:layout_constraintTop_toTopOf="@+id/tvRuntime"
+            tools:text="110 minutes" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/status"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvRuntime"
+            app:layout_constraintTop_toBottomOf="@+id/tvRuntime" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
+            app:layout_constraintStart_toEndOf="@+id/tvStatus"
+            app:layout_constraintTop_toTopOf="@+id/tvStatus"
+            tools:text="Released" />
 
         <View
             android:id="@+id/viewLoading"
@@ -78,178 +249,10 @@
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/loadingGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"
             app:constraint_referenced_ids="viewLoading,progressBar" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btnFavoriteIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="#1e2748"
-            android:src="@drawable/ic_baseline_favorite_border_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivBackDrop" />
-
-        <TextView
-            android:id="@+id/tvOverviewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/overview"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/ivPoster"
-            app:layout_constraintTop_toBottomOf="@+id/ivPoster" />
-
-        <TextView
-            android:id="@+id/tvOverviewDescripton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvOverviewTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvOverviewTitle"
-            tools:text="Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe." />
-
-        <ImageView
-            android:id="@+id/ivImdbIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_imdb"
-            app:layout_constraintBottom_toTopOf="@+id/tvReleaseDateValue"
-            app:layout_constraintStart_toStartOf="@+id/tvTitle" />
-
-        <TextView
-            android:id="@+id/tvVoteAverageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/ivImdbIcon"
-            app:layout_constraintStart_toEndOf="@+id/ivImdbIcon"
-            app:layout_constraintTop_toTopOf="@+id/ivImdbIcon"
-            tools:text="6.3" />
-
-        <TextView
-            android:id="@+id/tvReleaseDateValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
-            app:layout_constraintStart_toStartOf="@+id/ivImdbIcon"
-            tools:text="01/01/2022" />
-
-        <TextView
-            android:id="@+id/tvOriginalTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/original_title"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/tvOverviewDescripton"
-            app:layout_constraintTop_toBottomOf="@+id/tvOverviewDescripton" />
-
-        <TextView
-            android:id="@+id/tvOriginalTitleValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvOriginalTitle"
-            app:layout_constraintStart_toEndOf="@+id/tvOriginalTitle"
-            app:layout_constraintTop_toTopOf="@+id/tvOriginalTitle"
-            tools:text="The Dumbo" />
-
-        <TextView
-            android:id="@+id/tvBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/budget"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/tvOverviewDescripton"
-            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitle" />
-
-        <TextView
-            android:id="@+id/tvBudgetValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvBudget"
-            app:layout_constraintStart_toEndOf="@+id/tvBudget"
-            app:layout_constraintTop_toTopOf="@+id/tvBudget"
-            tools:text="200000" />
-
-        <TextView
-            android:id="@+id/tvRevenue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/revenue"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/tvBudget"
-            app:layout_constraintTop_toBottomOf="@+id/tvBudget" />
-
-        <TextView
-            android:id="@+id/tvRevenueValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvRevenue"
-            app:layout_constraintStart_toEndOf="@+id/tvRevenue"
-            app:layout_constraintTop_toTopOf="@+id/tvRevenue"
-            tools:text="100000" />
-
-        <TextView
-            android:id="@+id/tvRuntime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/runtime"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/tvRevenue"
-            app:layout_constraintTop_toBottomOf="@+id/tvRevenue" />
-
-        <TextView
-            android:id="@+id/tvRuntimeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvRuntime"
-            app:layout_constraintStart_toEndOf="@+id/tvRuntime"
-            app:layout_constraintTop_toTopOf="@+id/tvRuntime"
-            tools:text="110 minutes" />
-
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/status"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/tvRuntime"
-            app:layout_constraintTop_toBottomOf="@+id/tvRuntime" />
-
-        <TextView
-            android:id="@+id/tvStatusValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-            app:layout_constraintStart_toEndOf="@+id/tvStatus"
-            app:layout_constraintTop_toTopOf="@+id/tvStatus"
-            tools:text="Released" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

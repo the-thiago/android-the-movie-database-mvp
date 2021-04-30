@@ -83,6 +83,7 @@ class DetailsPresenter(
             movie.saveInBackground()
             view?.setFabAsFavoriteMovie()
         }
+        view?.hideLoadingScreen()
     }
 
     private fun setupLayout(movie: Movie?) {

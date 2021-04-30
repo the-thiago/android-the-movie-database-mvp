@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 
 class SearchPresenter(private var view: SearchContract.View?) : SearchContract.Presenter {
 
-    var searchJob: Job? = null
+    private var searchJob: Job? = null
 
     override fun searchMovies(query: String) {
         searchJob?.cancel()

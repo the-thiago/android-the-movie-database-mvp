@@ -11,11 +11,8 @@ import com.br.thiago.themoviedatabaseapp.R
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentDetailsBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
-import com.br.thiago.themoviedatabaseapp.util.Formatter
 import com.br.thiago.themoviedatabaseapp.util.Formatter.Companion.getMoneyFormat
 import com.bumptech.glide.Glide
-import java.text.NumberFormat
-import java.util.*
 
 class DetailsFragment : Fragment(), DetailsContract.View {
 
@@ -46,6 +43,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
         presenter = DetailsPresenter(this, MovieService.create())
         getMovieDetails()
         binding.btnFavoriteIcon.setOnClickListener {
+            showLoadingScreen()
             presenter?.addOrRemoveFromParse(movie, isFavoriteMovie)
         }
     }
@@ -70,7 +68,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
             .into(binding.ivPoster)
         binding.tvTitle.text = movie.title
         binding.tvBudgetValue.text = getMoneyFormat(movie.budget ?: 0)
-        binding.tvOverviewDescripton.text = movie.overview
+        binding.tvOverviewDescription.text = movie.overview
         binding.tvReleaseDateValue.text = movie.releaseDate?.replace("-", "/")
         binding.tvStatusValue.text = movie.status
         binding.tvRevenueValue.text = getMoneyFormat(movie.revenue ?: 0)

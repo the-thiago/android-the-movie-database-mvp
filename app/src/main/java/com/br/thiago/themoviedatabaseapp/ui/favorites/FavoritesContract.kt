@@ -1,6 +1,5 @@
 package com.br.thiago.themoviedatabaseapp.ui.favorites
 
-import android.content.Context
 import com.br.thiago.themoviedatabaseapp.model.Movie
 
 interface FavoritesContract {

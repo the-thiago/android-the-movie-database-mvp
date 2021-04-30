@@ -32,6 +32,7 @@
             android:layout_marginHorizontal="14dp"
             android:layout_marginTop="14dp"
             android:fontFamily="sans-serif"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="17sp"
             android:textStyle="bold"
