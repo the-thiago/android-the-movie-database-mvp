@@ -12,6 +12,7 @@ interface FavoritesContract {
 
     interface Presenter {
         fun getAllMovies()
+        fun destroyView()
     }
 
 }

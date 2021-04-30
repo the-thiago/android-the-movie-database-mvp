@@ -5,13 +5,13 @@ import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.br.thiago.themoviedatabaseapp.util.toMovies
 import kotlinx.coroutines.*
 
-class SearchPresenter(private val view: SearchContract.View) : SearchContract.Presenter {
+class SearchPresenter(private var view: SearchContract.View?) : SearchContract.Presenter {
 
     var searchJob: Job? = null
 
     override fun searchMovies(query: String) {
         searchJob?.cancel()
-        view.showLoadingScreen()
+        view?.showLoadingScreen()
         searchJob = CoroutineScope(Dispatchers.IO).launch {
             var movies = emptyList<Movie>()
             val moviesRequest = MovieService.create().searchMovies(query)
@@ -20,20 +20,24 @@ class SearchPresenter(private val view: SearchContract.View) : SearchContract.Pr
                     movies = it
                 }
                 withContext(Dispatchers.Main) {
-                    view.hideLoadingScreen()
+                    view?.hideLoadingScreen()
                     if (movies.isEmpty()) {
-                        view.showEmptySearch()
+                        view?.showEmptySearch()
                     } else {
-                        view.showSearchedMovies(movies)
+                        view?.showSearchedMovies(movies)
                     }
                 }
             } else {
                 withContext(Dispatchers.Main) {
-                    view.showEmptySearch()
-                    view.hideLoadingScreen()
+                    view?.showEmptySearch()
+                    view?.hideLoadingScreen()
                 }
             }
         }
+    }
+
+    override fun destroyView() {
+        view = null
     }
 
 }

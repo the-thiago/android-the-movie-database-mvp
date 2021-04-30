@@ -23,7 +23,7 @@
             android:name="movieId"
             app:argType="integer" />
         <argument
-            android:name="isFromDatabase"
+            android:name="isFromFavoritesFragment"
             app:argType="boolean" />
     </fragment>
     <fragment

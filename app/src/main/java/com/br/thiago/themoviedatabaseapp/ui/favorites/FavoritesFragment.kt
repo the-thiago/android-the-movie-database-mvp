@@ -28,6 +28,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        presenter?.destroyView()
         presenter = null
     }
 
@@ -42,7 +43,7 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         findNavController().navigate(
             FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(
                 movieId = movie.movieId,
-                isFromDatabase = true
+                isFromFavoritesFragment = true
             )
         )
     }

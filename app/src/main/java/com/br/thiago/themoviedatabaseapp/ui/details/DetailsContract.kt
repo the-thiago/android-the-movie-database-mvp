@@ -17,6 +17,7 @@ interface DetailsContract {
     interface Presenter {
         fun getMovieDetails(movieId: Int, isFromDatabase: Boolean)
         fun addOrRemoveFromParse(movie: Movie, isFavoriteMovie: Boolean)
+        fun destroyView()
     }
 
 }

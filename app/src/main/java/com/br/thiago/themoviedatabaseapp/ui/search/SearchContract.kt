@@ -13,6 +13,7 @@ class SearchContract {
 
     interface Presenter {
         fun searchMovies(query: String)
+        fun destroyView()
     }
 
 }

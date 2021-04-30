@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 
 
 class DetailsPresenter(
-    private val view: DetailsContract.View,
+    private var view: DetailsContract.View?,
     private val movieService: MovieService
 ) : DetailsContract.Presenter {
 
@@ -40,9 +40,9 @@ class DetailsPresenter(
                         movie.title = it.getString(TITLE_KEY)
                         movie.voteAverage = it.getDouble(VOTE_AVERAGE_KEY)
                         isFavoriteMovie = true
-                        view.setMovie(movie)
+                        view?.setMovie(movie)
                         setupLayout(movie)
-                        view.setFabAsFavoriteMovie()
+                        view?.setFabAsFavoriteMovie()
                     }
                 }
             } else {
@@ -55,9 +55,9 @@ class DetailsPresenter(
                 movieDetailsResponse?.toMovie()?.let {
                     movie = it
                     withContext(Dispatchers.Main) {
-                        view.setMovie(movie)
-                        view.setupLayout(movie)
-                        view.hideLoadingScreen()
+                        view?.setMovie(movie)
+                        view?.setupLayout(movie)
+                        view?.hideLoadingScreen()
                     }
                 }
             }
@@ -78,18 +78,22 @@ class DetailsPresenter(
                     Log.d("parse", "getAllMovies: Error ${exception.message}")
                 }
             }
-            view.setFabAsNotFavoriteMovie()
+            view?.setFabAsNotFavoriteMovie()
         } else {
             movie.saveInBackground()
-            view.setFabAsFavoriteMovie()
+            view?.setFabAsFavoriteMovie()
         }
     }
 
     private fun setupLayout(movie: Movie?) {
         movie?.let {
-            view.setupLayout(movie)
-            view.hideLoadingScreen()
+            view?.setupLayout(movie)
+            view?.hideLoadingScreen()
         }
+    }
+
+    override fun destroyView() {
+        view = null
     }
 
 }

@@ -33,6 +33,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        presenter?.destroyView()
         presenter = null
     }
 
@@ -47,7 +48,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
 
     private fun getMovieDetails() {
         showLoadingScreen()
-        presenter?.getMovieDetails(args.movieId, args.isFromDatabase)
+        presenter?.getMovieDetails(args.movieId, args.isFromFavoritesFragment)
     }
 
     override fun setupLayout(movie: Movie) {

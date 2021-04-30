@@ -9,5 +9,6 @@ class Constants {
         const val RELEASE_DATE_KEY = "release_date"
         const val TITLE_KEY = "title"
         const val VOTE_AVERAGE_KEY = "vote_average"
+        const val QUERY_PAGE_SIZE = 20
     }
 }

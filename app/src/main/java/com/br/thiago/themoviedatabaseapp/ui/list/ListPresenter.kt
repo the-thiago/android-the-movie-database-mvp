@@ -8,23 +8,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ListPresenter(private val view: ListContract.View) : ListContract.Presenter {
+class ListPresenter(private var view: ListContract.View?) : ListContract.Presenter {
+
+    private var moviesPage = 1
+    var movies = mutableListOf<Movie>()
 
     override fun getMoviesFromApi() {
-        view.showLoadingScreen()
         CoroutineScope(Dispatchers.IO).launch {
-            var movies = emptyList<Movie>()
-            val moviesRequest = MovieService.create().getMovies()
+            val moviesRequest = MovieService.create().getMovies(moviesPage)
             if (moviesRequest.isSuccessful) {
                 moviesRequest.body()?.toMovies()?.let {
-                    movies = it
+                    moviesPage++
+                    movies.addAll(it)
                 }
                 withContext(Dispatchers.Main) {
-                    view.showMovieList(movies)
-                    view.hideLoadingScreen()
+                    view?.showMovieList(movies)
                 }
             }
         }
+    }
+
+    override fun destroyView() {
+        view = null
     }
 
 }

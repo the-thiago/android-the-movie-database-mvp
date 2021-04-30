@@ -12,6 +12,7 @@ interface ListContract {
 
     interface Presenter {
         fun getMoviesFromApi()
+        fun destroyView()
     }
 
 }

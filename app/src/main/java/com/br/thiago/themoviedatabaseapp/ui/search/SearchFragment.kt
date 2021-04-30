@@ -30,6 +30,7 @@ class SearchFragment : Fragment(), SearchContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        presenter?.destroyView()
         presenter = null
     }
 
@@ -45,7 +46,7 @@ class SearchFragment : Fragment(), SearchContract.View {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
                 movieId = movie.movieId,
-                isFromDatabase = false
+                isFromFavoritesFragment = false
             )
         )
     }
