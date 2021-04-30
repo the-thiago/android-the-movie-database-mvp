@@ -2,7 +2,7 @@ package com.br.thiago.themoviedatabaseapp.ui.list
 
 import com.br.thiago.themoviedatabaseapp.model.Movie
 
-interface ListContract {
+interface NowPlayingContract {
 
     interface View {
         fun showMovieList(movies: List<Movie>)

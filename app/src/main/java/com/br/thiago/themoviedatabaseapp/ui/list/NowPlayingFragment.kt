@@ -10,16 +10,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.br.thiago.themoviedatabaseapp.adapter.MovieAdapter
-import com.br.thiago.themoviedatabaseapp.databinding.FragmentListBinding
+import com.br.thiago.themoviedatabaseapp.databinding.FragmentNowPlayingBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.QUERY_PAGE_SIZE
 
-class ListFragment : Fragment(), ListContract.View {
+class NowPlayingFragment : Fragment(), NowPlayingContract.View {
 
-    private var _binding: FragmentListBinding? = null
+    private var _binding: FragmentNowPlayingBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy { MovieAdapter(::clickItem) }
-    private var presenter: ListPresenter? = null
+    private var presenter: NowPlayingPresenter? = null
 
     private var isError = false
     private var isLoading = false
@@ -61,7 +61,7 @@ class ListFragment : Fragment(), ListContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+        _binding = FragmentNowPlayingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -74,17 +74,17 @@ class ListFragment : Fragment(), ListContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = ListPresenter(this)
+        presenter = NowPlayingPresenter(this)
         binding.recyclerView.apply {
-            adapter = this@ListFragment.adapter
-            addOnScrollListener(this@ListFragment.scrollListener)
+            adapter = this@NowPlayingFragment.adapter
+            addOnScrollListener(this@NowPlayingFragment.scrollListener)
         }
         presenter?.getMoviesFromApi()
     }
 
     private fun clickItem(movie: Movie) {
         findNavController().navigate(
-            ListFragmentDirections.actionListFragmentToDetailsFragment(
+            NowPlayingFragmentDirections.actionListFragmentToDetailsFragment(
                 movieId = movie.movieId,
                 isFromFavoritesFragment = false
             )

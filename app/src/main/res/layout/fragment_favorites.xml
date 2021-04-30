@@ -10,6 +10,9 @@
         android:id="@+id/tvNoFavoriteMovieText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:elevation="5dp"
+        android:visibility="gone"
         android:text="@string/no_favorite_movie"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -20,6 +23,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:background="@color/dark_blue_recycler_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

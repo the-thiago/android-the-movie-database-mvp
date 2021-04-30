@@ -45,7 +45,7 @@
         android:id="@+id/viewLoading"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#99ffffff"
+        android:background="#99516D9A"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

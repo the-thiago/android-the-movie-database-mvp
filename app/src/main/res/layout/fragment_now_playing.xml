@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.list.ListFragment">
+    tools:context=".ui.list.NowPlayingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/dark_blue_recycler_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +21,7 @@
         android:id="@+id/viewLoading"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#99ffffff"
+        android:background="#99516D9A"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,10 +44,10 @@
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/loadingGroup"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="viewLoading,progressBar"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="viewLoading,progressBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

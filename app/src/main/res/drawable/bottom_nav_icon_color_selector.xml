@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/blue_selected_icon_navigation" />
+    <item android:state_pressed="true" android:state_enabled="true" android:color="@color/unselected_icon_bottom_navigation" />
+    <item android:color="@color/unselected_icon_bottom_navigation" />
+</selector>

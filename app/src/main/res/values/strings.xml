@@ -8,4 +8,6 @@
     <string name="type_to_search">Type to search</string>
     <string name="search_hint">Search…</string>
     <string name="no_favorite_movie">No favorite movie</string>
+    <string name="imdb_icon">Imdb Icon</string>
+    <string name="now_playing">Now playing</string>
 </resources>

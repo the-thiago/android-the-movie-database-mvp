@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_blue_recycler_background"
     tools:context=".ui.search.SearchFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSearchResultStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="5dp"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
         tools:text="No movies found" />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -24,9 +27,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:background="@color/dark_blue_recycler_background"
         android:ems="10"
         android:hint="@string/search_hint"
         android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/unselected_icon_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +40,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
+        android:layout_marginTop="10dp"
         android:layout_height="0dp"
+        android:background="@color/dark_blue_recycler_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +53,7 @@
         android:id="@+id/viewLoading"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#99ffffff"
+        android:background="#99516D9A"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +75,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Group
+        android:elevation="10dp"
         android:id="@+id/loadingGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

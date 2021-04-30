@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ListPresenter(private var view: ListContract.View?) : ListContract.Presenter {
+class NowPlayingPresenter(private var view: NowPlayingContract.View?) : NowPlayingContract.Presenter {
 
     private var moviesPage = 1
     var movies = mutableListOf<Movie>()
