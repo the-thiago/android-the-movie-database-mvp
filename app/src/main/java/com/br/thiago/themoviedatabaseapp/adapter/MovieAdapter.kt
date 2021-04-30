@@ -41,7 +41,7 @@ class MovieAdapter(private val callback: (Movie) -> Unit) :
 
         fun bind(movie: Movie) {
             tvMovieTitle.text = movie.title
-            tvReleaseDate.text = movie.releaseDate
+            tvReleaseDate.text = movie.releaseDate?.replace("-", "/")
             tvVoteAverage.text = movie.voteAverage.toString()
             itemView.setOnClickListener { callback.invoke(movie) }
 

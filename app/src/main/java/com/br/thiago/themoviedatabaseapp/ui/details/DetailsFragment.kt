@@ -11,7 +11,11 @@ import com.br.thiago.themoviedatabaseapp.R
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentDetailsBinding
 import com.br.thiago.themoviedatabaseapp.model.Movie
+import com.br.thiago.themoviedatabaseapp.util.Formatter
+import com.br.thiago.themoviedatabaseapp.util.Formatter.Companion.getMoneyFormat
 import com.bumptech.glide.Glide
+import java.text.NumberFormat
+import java.util.*
 
 class DetailsFragment : Fragment(), DetailsContract.View {
 
@@ -41,7 +45,7 @@ class DetailsFragment : Fragment(), DetailsContract.View {
         super.onViewCreated(view, savedInstanceState)
         presenter = DetailsPresenter(this, MovieService.create())
         getMovieDetails()
-        binding.fabAddFavorite.setOnClickListener {
+        binding.btnFavoriteIcon.setOnClickListener {
             presenter?.addOrRemoveFromParse(movie, isFavoriteMovie)
         }
     }
@@ -52,13 +56,27 @@ class DetailsFragment : Fragment(), DetailsContract.View {
     }
 
     override fun setupLayout(movie: Movie) {
-        binding.tvOriginalTitle.text = movie.originalTitle
         Glide
             .with(requireContext())
             .load("${MovieService.BASE_IMAGE_URL}${movie.backdropPath}")
             .placeholder(R.drawable.ic_movie_image_placeholder)
             .centerCrop()
             .into(binding.ivBackDrop)
+        Glide
+            .with(requireContext())
+            .load("${MovieService.BASE_IMAGE_URL}${movie.posterPath}")
+            .placeholder(R.drawable.ic_movie_image_placeholder)
+            .centerCrop()
+            .into(binding.ivPoster)
+        binding.tvTitle.text = movie.title
+        binding.tvBudgetValue.text = getMoneyFormat(movie.budget ?: 0)
+        binding.tvOverviewDescripton.text = movie.overview
+        binding.tvReleaseDateValue.text = movie.releaseDate?.replace("-", "/")
+        binding.tvStatusValue.text = movie.status
+        binding.tvRevenueValue.text = getMoneyFormat(movie.revenue ?: 0)
+        binding.tvOriginalTitleValue.text = movie.originalTitle
+        binding.tvRuntimeValue.text = movie.runtime.toString() + " min"
+        binding.tvVoteAverageValue.text = movie.voteAverage.toString()
     }
 
     override fun showLoadingScreen() {
@@ -71,14 +89,14 @@ class DetailsFragment : Fragment(), DetailsContract.View {
 
     override fun setFabAsFavoriteMovie() {
         isFavoriteMovie = true
-        binding.fabAddFavorite.setImageDrawable(
-            context?.let { ContextCompat.getDrawable(it, R.drawable.ic_baseline_favorite_24) }
+        binding.btnFavoriteIcon.setImageDrawable(
+            context?.let { ContextCompat.getDrawable(it, R.drawable.ic_baseline_red_favorite_24) }
         )
     }
 
     override fun setFabAsNotFavoriteMovie() {
         isFavoriteMovie = false
-        binding.fabAddFavorite.setImageDrawable(
+        binding.btnFavoriteIcon.setImageDrawable(
             context?.let {
                 ContextCompat.getDrawable(
                     it,

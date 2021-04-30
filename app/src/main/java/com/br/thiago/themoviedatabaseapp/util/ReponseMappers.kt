@@ -19,7 +19,13 @@ fun GetMoviesResponse.toMovies(): List<Movie> {
 
 fun com.br.thiago.themoviedatabaseapp.api.getdetails.Movie.toMovie(): Movie {
     val titleFromApi = this.title
+    val overviewFromApi = this.overview
+    val budgetFromApi = this.budget
+    val revenueFromApi = this.revenue
+    val runtimeFromApi = this.runtime
+    val statusFromApi = this.status
     return Movie().apply {
+        // overview, budget, revenue, runtime, status (released)
         movieId = id
         backdropPath = backdrop_path
         posterPath = poster_path
@@ -27,5 +33,10 @@ fun com.br.thiago.themoviedatabaseapp.api.getdetails.Movie.toMovie(): Movie {
         this.title = titleFromApi
         releaseDate = release_date
         originalTitle = original_title
+        this.overview = overviewFromApi
+        this.budget = budgetFromApi
+        this.revenue = revenueFromApi
+        this.runtime = runtimeFromApi
+        this.status = statusFromApi
     }
 }

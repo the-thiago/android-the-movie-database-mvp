@@ -10,4 +10,10 @@
     <string name="no_favorite_movie">No favorite movie</string>
     <string name="imdb_icon">Imdb Icon</string>
     <string name="now_playing">Now playing</string>
+    <string name="overview">Overview</string>
+    <string name="status">Status:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="revenue">Revenue:</string>
+    <string name="budget">Budget:</string>
+    <string name="original_title">Original Title:</string>
 </resources>

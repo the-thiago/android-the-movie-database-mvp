@@ -7,6 +7,11 @@ import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.POSTER_PATH_KE
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.RELEASE_DATE_KEY
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.TITLE_KEY
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_AVERAGE_KEY
+import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_BUDGET
+import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_OVERVIEW
+import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_REVENUE
+import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_RUNTIME
+import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_STATUS
 import com.parse.ParseClassName
 import com.parse.ParseObject
 
@@ -53,6 +58,36 @@ class Movie : ParseObject() {
         get() = getDouble(VOTE_AVERAGE_KEY)
         set(value) {
             put(VOTE_AVERAGE_KEY, value ?: 0.0)
+        }
+
+    var overview: String?
+        get() = getString(VOTE_OVERVIEW)
+        set(value) {
+            put(VOTE_OVERVIEW, value ?: "No overview found")
+        }
+
+    var budget: Long?
+        get() = getLong(VOTE_BUDGET)
+        set(value) {
+            put(VOTE_BUDGET, value ?: 0)
+        }
+
+    var revenue: Long?
+        get() = getLong(VOTE_REVENUE)
+        set(value) {
+            put(VOTE_REVENUE, value ?: 0)
+        }
+
+    var runtime: Int?
+        get() = getInt(VOTE_RUNTIME)
+        set(value) {
+            put(VOTE_RUNTIME, value ?: 0)
+        }
+
+    var status: String?
+        get() = getString(VOTE_STATUS)
+        set(value) {
+            put(VOTE_STATUS, value ?: "No status found")
         }
 
 }
