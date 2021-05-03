@@ -1,8 +1,6 @@
 package com.br.thiago.themoviedatabaseapp.ui.list
 
 import android.net.ConnectivityManager
-import android.provider.Settings.Global.getString
-import com.br.thiago.themoviedatabaseapp.R
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.br.thiago.themoviedatabaseapp.util.hasInternetConnection
