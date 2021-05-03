@@ -6,7 +6,9 @@ import com.br.thiago.themoviedatabaseapp.model.Movie
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.ID_KEY
 import com.br.thiago.themoviedatabaseapp.util.hasInternetConnection
 import com.br.thiago.themoviedatabaseapp.util.toMovie
+import com.parse.ParseACL
 import com.parse.ParseQuery
+import com.parse.ParseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -84,6 +86,7 @@ class DetailsPresenter(
             }
             view?.setFabAsNotFavoriteMovie()
         } else {
+            movie.acl = ParseACL(ParseUser.getCurrentUser())
             movie.saveInBackground()
             view?.setFabAsFavoriteMovie()
         }

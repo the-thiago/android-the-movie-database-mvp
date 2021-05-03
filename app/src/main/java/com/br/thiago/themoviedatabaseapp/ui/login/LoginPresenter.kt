@@ -30,6 +30,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     override fun onCurrentUserLogin() {
         val currentUser = ParseUser.getCurrentUser()
         if (currentUser != null) {
+            // Disabled, while not implementing logout
 //            view?.onSuccessfulLogin()
         }
     }

@@ -11,6 +11,7 @@ import com.br.thiago.themoviedatabaseapp.R
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentLoginBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+
 class LoginFragment : Fragment(), LoginContract.View {
 
     private var _binding: FragmentLoginBinding? = null

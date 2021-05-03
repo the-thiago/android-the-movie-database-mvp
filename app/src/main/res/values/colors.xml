@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -10,4 +10,5 @@
     <color name="unselected_icon_bottom_navigation">#516d9a</color>
     <color name="blue_selected_icon_navigation">#0f7ef2</color>
     <color name="dark_blue_recycler_background">#141a32</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 </resources>
