@@ -56,6 +56,7 @@ class SearchFragment : Fragment(), SearchContract.View {
 
     private fun searchMovies() {
         binding.etSearchField.addTextChangedListener { editable ->
+            showLoadingScreen()
             val query = editable.toString()
             presenter?.searchMovies(
                 query,
@@ -84,7 +85,11 @@ class SearchFragment : Fragment(), SearchContract.View {
     }
 
     override fun showNoInternetConnectionWarning() {
-        Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.no_internet_connection),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
 }

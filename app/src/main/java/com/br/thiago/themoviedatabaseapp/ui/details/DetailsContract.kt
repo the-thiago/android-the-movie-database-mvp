@@ -13,6 +13,7 @@ interface DetailsContract {
         fun setFabAsNotFavoriteMovie()
         fun setMovie(movie: Movie)
         fun showNoInternetConnectionWarning()
+        fun showErrorMessage()
     }
 
     interface Presenter {

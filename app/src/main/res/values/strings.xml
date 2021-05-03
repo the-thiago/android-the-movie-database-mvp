@@ -16,4 +16,6 @@
     <string name="revenue">Revenue:</string>
     <string name="budget">Budget:</string>
     <string name="original_title">Original Title:</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
 </resources>

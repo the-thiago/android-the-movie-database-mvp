@@ -21,7 +21,6 @@ class SearchPresenter(private var view: SearchContract.View?) : SearchContract.P
 
     private fun safeSearchMovies(query: String) {
         searchJob?.cancel()
-        view?.showLoadingScreen()
         searchJob = CoroutineScope(Dispatchers.IO).launch {
             var movies = emptyList<Movie>()
             val moviesRequest = MovieService.create().searchMovies(query)

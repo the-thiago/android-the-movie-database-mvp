@@ -25,28 +25,16 @@ class FavoritesPresenter(private var view: FavoritesContract.View?) : FavoritesC
     }
 
     private fun safeGetAllMovies() {
-        val query = ParseQuery.getQuery<ParseObject>("Movie")
+        val query = ParseQuery.getQuery<Movie>("Movie")
         query.findInBackground { moviesFromParse, exception ->
             if (exception == null) {
                 if (moviesFromParse.isEmpty()) {
                     view?.showNoFavoriteMovieText()
                 } else {
-                    val movies = mutableListOf<Movie>()
-                    moviesFromParse.forEach {
-                        val movie = Movie()
-                        movie.movieId = it.getInt(ID_KEY)
-                        movie.backdropPath = it.getString(BACKDROP_PATH_KEY)
-                        movie.originalTitle = it.getString(ORIGINAL_TITLE_KEY)
-                        movie.posterPath = it.getString(POSTER_PATH_KEY)
-                        movie.releaseDate = it.getString(RELEASE_DATE_KEY)
-                        movie.title = it.getString(TITLE_KEY)
-                        movie.voteAverage = it.getDouble(VOTE_AVERAGE_KEY)
-                        movies.add(movie)
-                    }
-                    view?.showMovieList(movies)
+                    view?.showMovieList(moviesFromParse)
                 }
             } else {
-                Log.d("parse", "getAllMovies: Error ${exception.message}")
+                view?.showErrorMessage()
             }
         }
     }

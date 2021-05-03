@@ -10,6 +10,7 @@ interface NowPlayingContract {
         fun showLoadingScreen()
         fun hideLoadingScreen()
         fun showNoInternetConnectionWarning()
+        fun showErrorMessage()
     }
 
     interface Presenter {

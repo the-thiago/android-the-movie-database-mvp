@@ -9,6 +9,7 @@ interface FavoritesContract {
         fun showMovieList(movies: List<Movie>)
         fun showNoFavoriteMovieText()
         fun showNoInternetConnectionWarning()
+        fun showErrorMessage()
     }
 
     interface Presenter {
