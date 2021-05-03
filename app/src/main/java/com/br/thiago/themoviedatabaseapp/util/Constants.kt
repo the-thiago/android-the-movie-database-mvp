@@ -2,7 +2,6 @@ package com.br.thiago.themoviedatabaseapp.util
 
 class Constants {
     companion object {
-        // overview, budget, revenue, runtime, status (released)
         const val ID_KEY = "movie_id"
         const val BACKDROP_PATH_KEY = "backdrop_path"
         const val ORIGINAL_TITLE_KEY = "original_title"
@@ -16,5 +15,7 @@ class Constants {
         const val VOTE_RUNTIME = "runtime"
         const val VOTE_STATUS = "status"
         const val QUERY_PAGE_SIZE = 20
+
+
     }
 }

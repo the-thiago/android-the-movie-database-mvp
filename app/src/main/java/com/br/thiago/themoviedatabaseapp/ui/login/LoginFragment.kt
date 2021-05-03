@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.br.thiago.themoviedatabaseapp.R
 import com.br.thiago.themoviedatabaseapp.databinding.FragmentLoginBinding
-import com.br.thiago.themoviedatabaseapp.ui.list.NowPlayingPresenter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginFragment : Fragment(), LoginContract.View {
@@ -51,6 +51,26 @@ class LoginFragment : Fragment(), LoginContract.View {
         findNavController().navigate(
             LoginFragmentDirections.actionLoginFragment2ToNowPlayingFragment()
         )
+    }
+
+    override fun wrongParametersErrorMessage() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.wrong_credential),
+            Toast.LENGTH_LONG
+        ).show()
+        binding.tfUser.error = " "
+        binding.tfPassword.error = " "
+    }
+
+    override fun unexpectedErrorMessage() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.unexpected_error_occurred),
+            Toast.LENGTH_LONG
+        ).show()
+        binding.tfUser.error = " "
+        binding.tfPassword.error = " "
     }
 
 }

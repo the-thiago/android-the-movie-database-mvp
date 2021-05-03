@@ -4,6 +4,8 @@ interface LoginContract {
 
     interface View {
         fun onSuccessfulLogin()
+        fun wrongParametersErrorMessage()
+        fun unexpectedErrorMessage()
     }
 
     interface Presenter {

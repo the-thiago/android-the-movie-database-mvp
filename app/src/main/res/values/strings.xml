@@ -19,4 +19,7 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="login">Login</string>
+    <string name="wrong_credential">Wrong credential</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
 </resources>
