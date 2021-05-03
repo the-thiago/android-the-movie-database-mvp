@@ -1,5 +1,6 @@
 package com.br.thiago.themoviedatabaseapp.ui.details
 
+import android.net.ConnectivityManager
 import android.util.Log
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
@@ -10,6 +11,7 @@ import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.POSTER_PATH_KE
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.RELEASE_DATE_KEY
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.TITLE_KEY
 import com.br.thiago.themoviedatabaseapp.util.Constants.Companion.VOTE_AVERAGE_KEY
+import com.br.thiago.themoviedatabaseapp.util.hasInternetConnection
 import com.br.thiago.themoviedatabaseapp.util.toMovie
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -24,7 +26,19 @@ class DetailsPresenter(
     private val movieService: MovieService
 ) : DetailsContract.Presenter {
 
-    override fun getMovieDetails(movieId: Int, isFromDatabase: Boolean) {
+    override fun getMovieDetails(
+        movieId: Int,
+        isFromDatabase: Boolean,
+        connectivityManager: ConnectivityManager
+    ) {
+        if (hasInternetConnection(connectivityManager)) {
+            safeGetMovieDetails(movieId)
+        } else {
+            view?.showNoInternetConnectionWarning()
+        }
+    }
+
+    private fun safeGetMovieDetails(movieId: Int) {
         var movie = Movie()
         var isFavoriteMovie = false
         val query = ParseQuery.getQuery<ParseObject>("Movie")
@@ -64,7 +78,23 @@ class DetailsPresenter(
         }
     }
 
-    override fun addOrRemoveFromParse(movie: Movie, isFavoriteMovie: Boolean) {
+    override fun addOrRemoveFromParse(
+        movie: Movie,
+        isFavoriteMovie: Boolean,
+        connectivityManager: ConnectivityManager
+    ) {
+        if (hasInternetConnection(connectivityManager)) {
+            safeAddOrRemoveFromParse(isFavoriteMovie, movie)
+        } else {
+            view?.showNoInternetConnectionWarning()
+        }
+        view?.hideLoadingScreen()
+    }
+
+    private fun safeAddOrRemoveFromParse(
+        isFavoriteMovie: Boolean,
+        movie: Movie
+    ) {
         if (isFavoriteMovie) {
             val query = ParseQuery.getQuery<ParseObject>("Movie")
             query.findInBackground { moviesFromParse, exception ->
@@ -83,7 +113,6 @@ class DetailsPresenter(
             movie.saveInBackground()
             view?.setFabAsFavoriteMovie()
         }
-        view?.hideLoadingScreen()
     }
 
     private fun setupLayout(movie: Movie?) {

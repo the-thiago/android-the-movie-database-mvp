@@ -1,5 +1,6 @@
 package com.br.thiago.themoviedatabaseapp.ui.list
 
+import android.net.ConnectivityManager
 import com.br.thiago.themoviedatabaseapp.model.Movie
 
 interface NowPlayingContract {
@@ -8,10 +9,11 @@ interface NowPlayingContract {
         fun showMovieList(movies: List<Movie>)
         fun showLoadingScreen()
         fun hideLoadingScreen()
+        fun showNoInternetConnectionWarning()
     }
 
     interface Presenter {
-        fun getMoviesFromApi()
+        fun getMoviesFromApi(connectivityManager: ConnectivityManager)
         fun destroyView()
     }
 

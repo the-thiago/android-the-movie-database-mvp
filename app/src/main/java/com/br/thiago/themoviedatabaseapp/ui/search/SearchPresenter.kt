@@ -1,7 +1,9 @@
 package com.br.thiago.themoviedatabaseapp.ui.search
 
+import android.net.ConnectivityManager
 import com.br.thiago.themoviedatabaseapp.api.MovieService
 import com.br.thiago.themoviedatabaseapp.model.Movie
+import com.br.thiago.themoviedatabaseapp.util.hasInternetConnection
 import com.br.thiago.themoviedatabaseapp.util.toMovies
 import kotlinx.coroutines.*
 
@@ -9,7 +11,15 @@ class SearchPresenter(private var view: SearchContract.View?) : SearchContract.P
 
     private var searchJob: Job? = null
 
-    override fun searchMovies(query: String) {
+    override fun searchMovies(query: String, connectivityManager: ConnectivityManager) {
+        if (hasInternetConnection(connectivityManager)) {
+            safeSearchMovies(query)
+        } else {
+            view?.showNoInternetConnectionWarning()
+        }
+    }
+
+    private fun safeSearchMovies(query: String) {
         searchJob?.cancel()
         view?.showLoadingScreen()
         searchJob = CoroutineScope(Dispatchers.IO).launch {

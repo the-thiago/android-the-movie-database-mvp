@@ -1,5 +1,6 @@
 package com.br.thiago.themoviedatabaseapp.ui.details
 
+import android.net.ConnectivityManager
 import com.br.thiago.themoviedatabaseapp.model.Movie
 
 interface DetailsContract {
@@ -11,11 +12,22 @@ interface DetailsContract {
         fun setFabAsFavoriteMovie()
         fun setFabAsNotFavoriteMovie()
         fun setMovie(movie: Movie)
+        fun showNoInternetConnectionWarning()
     }
 
     interface Presenter {
-        fun getMovieDetails(movieId: Int, isFromDatabase: Boolean)
-        fun addOrRemoveFromParse(movie: Movie, isFavoriteMovie: Boolean)
+        fun getMovieDetails(
+            movieId: Int,
+            isFromDatabase: Boolean,
+            connectivityManager: ConnectivityManager
+        )
+
+        fun addOrRemoveFromParse(
+            movie: Movie,
+            isFavoriteMovie: Boolean,
+            connectivityManager: ConnectivityManager
+        )
+
         fun destroyView()
     }
 

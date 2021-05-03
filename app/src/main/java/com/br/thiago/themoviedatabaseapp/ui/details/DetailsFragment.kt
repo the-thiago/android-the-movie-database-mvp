@@ -1,9 +1,12 @@
 package com.br.thiago.themoviedatabaseapp.ui.details
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -44,13 +47,21 @@ class DetailsFragment : Fragment(), DetailsContract.View {
         getMovieDetails()
         binding.btnFavoriteIcon.setOnClickListener {
             showLoadingScreen()
-            presenter?.addOrRemoveFromParse(movie, isFavoriteMovie)
+            presenter?.addOrRemoveFromParse(
+                movie,
+                isFavoriteMovie,
+                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            )
         }
     }
 
     private fun getMovieDetails() {
         showLoadingScreen()
-        presenter?.getMovieDetails(args.movieId, args.isFromFavoritesFragment)
+        presenter?.getMovieDetails(
+            args.movieId,
+            args.isFromFavoritesFragment,
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        )
     }
 
     override fun setupLayout(movie: Movie) {
@@ -106,6 +117,10 @@ class DetailsFragment : Fragment(), DetailsContract.View {
 
     override fun setMovie(movie: Movie) {
         this.movie = movie
+    }
+
+    override fun showNoInternetConnectionWarning() {
+        Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG).show()
     }
 
 }

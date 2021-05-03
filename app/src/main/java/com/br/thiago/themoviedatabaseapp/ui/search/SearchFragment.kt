@@ -1,9 +1,12 @@
 package com.br.thiago.themoviedatabaseapp.ui.search
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -54,7 +57,10 @@ class SearchFragment : Fragment(), SearchContract.View {
     private fun searchMovies() {
         binding.etSearchField.addTextChangedListener { editable ->
             val query = editable.toString()
-            presenter?.searchMovies(query)
+            presenter?.searchMovies(
+                query,
+                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            )
         }
     }
 
@@ -75,6 +81,10 @@ class SearchFragment : Fragment(), SearchContract.View {
         adapter.setItems(emptyList())
         binding.tvSearchResultStatus.text = getString(R.string.no_movies_found)
         binding.tvSearchResultStatus.visibility = View.VISIBLE
+    }
+
+    override fun showNoInternetConnectionWarning() {
+        Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG).show()
     }
 
 }

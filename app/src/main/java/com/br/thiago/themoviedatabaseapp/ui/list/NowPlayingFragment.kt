@@ -1,10 +1,13 @@
 package com.br.thiago.themoviedatabaseapp.ui.list
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,7 +47,10 @@ class NowPlayingFragment : Fragment(), NowPlayingContract.View {
                 isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                         isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
-                presenter?.getMoviesFromApi()
+                presenter?.getMoviesFromApi(
+                    requireContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                )
                 isScrolling = false
             }
         }
@@ -79,7 +85,9 @@ class NowPlayingFragment : Fragment(), NowPlayingContract.View {
             adapter = this@NowPlayingFragment.adapter
             addOnScrollListener(this@NowPlayingFragment.scrollListener)
         }
-        presenter?.getMoviesFromApi()
+        presenter?.getMoviesFromApi(
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        )
     }
 
     private fun clickItem(movie: Movie) {
@@ -104,6 +112,10 @@ class NowPlayingFragment : Fragment(), NowPlayingContract.View {
     override fun hideLoadingScreen() {
         binding.loadingGroup.visibility = View.GONE
         isLoading = false
+    }
+
+    override fun showNoInternetConnectionWarning() {
+        Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG).show()
     }
 
 }

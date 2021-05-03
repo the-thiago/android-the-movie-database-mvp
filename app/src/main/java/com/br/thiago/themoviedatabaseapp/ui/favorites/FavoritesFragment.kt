@@ -1,9 +1,12 @@
 package com.br.thiago.themoviedatabaseapp.ui.favorites
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.br.thiago.themoviedatabaseapp.adapter.MovieAdapter
@@ -36,7 +39,9 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
         super.onViewCreated(view, savedInstanceState)
         presenter = FavoritesPresenter(this)
         binding.recyclerView.adapter = adapter
-        presenter?.getAllMovies()
+        presenter?.getAllMovies(
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        )
     }
 
     private fun clickItem(movie: Movie) {
@@ -55,6 +60,10 @@ class FavoritesFragment : Fragment(), FavoritesContract.View {
 
     override fun showNoFavoriteMovieText() {
         binding.tvNoFavoriteMovieText.visibility = View.VISIBLE
+    }
+
+    override fun showNoInternetConnectionWarning() {
+        Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG).show()
     }
 
 }
